@@ -7,6 +7,9 @@ LABEL "maintainer"="Dagen Brock <dagenbrock@gmail.com>" \
       "com.github.actions.description"="CloudFormation Guard action using cfn-guard" \
       "com.github.actions.icon"="check-circle" \
       "com.github.actions.color"="green"
+
+ADD entrypoint.sh /entrypoint.sh
+
 RUN apt-get update && apt-get install -yy \
  wget
 
