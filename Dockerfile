@@ -9,6 +9,7 @@ LABEL "maintainer"="Dagen Brock <dagenbrock@gmail.com>" \
       "com.github.actions.color"="green"
 
 ADD entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN apt-get update && apt-get install -yy \
  wget
