@@ -7,7 +7,7 @@ A Github Action to allow run cfn-guard (CloudFormation Guard) compliance checks 
 
 ```yaml
 - name: Run CloudFormation Guard
-  uses: digarok/cloudformation-guard-action@master
+  uses: digarok/cloudformation-guard-action@main
   with:
     cfn_directory: cloudformation
 ```
@@ -15,5 +15,5 @@ A Github Action to allow run cfn-guard (CloudFormation Guard) compliance checks 
 This action, by default, will look for any file in the specified `cfn_directory` with resources inside them and try to run cfn-guard rules contained in matching files called `*.ruleset`.
 
 ## Credentials
-As this action is essentially a static analysis of your CloudFormation template agains a set of rules, no credentials are required. 
+As this action is essentially a static analysis of your CloudFormation template against a set of rules, no credentials are required. 
 
