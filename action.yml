@@ -2,8 +2,8 @@ name: 'cloudformation-guard-action'
 description: 'Run cfn-guard compliance tool against your repository'
 author: 'Dagen Brock'
 branding:
-    icon: 'terminal'
-    color: 'yellow'
+    icon: 'shield'
+    color: 'orange'
 inputs:
     cfn_directory:
         description: 'Sub Directory of cloudformation templates'

@@ -14,6 +14,28 @@ A Github Action to allow run cfn-guard (CloudFormation Guard) compliance checks 
 
 This action, by default, will look for any file in the specified `cfn_directory` with resources inside them and try to run cfn-guard rules contained in matching files called `*.ruleset`.
 
+Example of the expected directory structure when called with cfn_directory = 'cloudformation' :
+```
+.
+└── cloudformation
+    ├── demostack.cft
+    └── demostack.ruleset
+```
+
+The extension of the template doesn't matter, but the matching ruleset must be named _{filename}.ruleset_.
+
+
+
 ## Credentials
 As this action is essentially a static analysis of your CloudFormation template against a set of rules, no credentials are required. 
+
+
+### References
+
+This project is not affiliated with AWS or CloudFormation Guard.  For information on that tool see the following repository:
+https://github.com/aws-cloudformation/cloudformation-guard
+
+For information on writing CloudFormation Guard rules, see the following readme:
+https://github.com/aws-cloudformation/cloudformation-guard/blob/master/cfn-guard/README.md#writing-rules
+
 
