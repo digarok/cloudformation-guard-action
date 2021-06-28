@@ -9,6 +9,11 @@ inputs:
         description: 'Sub Directory of cloudformation templates'
         required: true
         default: 'cloudformation'
+
+    ruleset_file:
+        description: 'path/to/file of ruleset file'
+        required: true
+        default: 'cfn-guard.ruleset'
 runs:
     using: 'docker'
     image: './Dockerfile'

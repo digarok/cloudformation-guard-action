@@ -9,14 +9,20 @@ if [ -z ${INPUT_CFN_DIRECTORY} ] ; then
 fi
 
 # find templates with resource
-POSSIBLE_TEMPLATES=`grep --with-filename -r 'Resources' ${INPUT_CFN_DIRECTORY}/* |cut -d':' -f1 |sort -u`
+POSSIBLE_TEMPLATES=`grep \\
+  --with-filename \\
+  --recursive 'Resources' ${INPUT_CFN_DIRECTORY}/* \\
+  | cut -d':' -f1 \\
+  | sort -u`
 
 for f in $POSSIBLE_TEMPLATES; do
-    echo "Checking for ruleset matching template file: ${f}"
-    rules=${f%.*}.ruleset
-    if [ -e $rules ]; then
+    # echo "Checking for ruleset matching template file: ${f}"
+
+    # rules=${f%.*}.ruleset
+    # ruleset_file=ruleset_file
+    if [ -e $INPUT_RULESET_FILE ]; then
         echo "                                      Found: $rules"
-        cg_cmd="cfn-guard check --strict-checks --rule_set $rules  --template ${PWD}/${f}"
+        cg_cmd="cfn-guard check --strict-checks --rule_set $INPUT_RULESET_FILE  --template ${PWD}/${f}"
         echo "Running command:"
         echo "$ $cg_cmd"
         $cg_cmd
