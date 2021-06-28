@@ -9,11 +9,7 @@ if [ -z ${INPUT_CFN_DIRECTORY} ] ; then
 fi
 
 # find templates with resource
-POSSIBLE_TEMPLATES=`grep \\
-  --with-filename \\
-  --recursive 'Resources' ${INPUT_CFN_DIRECTORY}/* \\
-  | cut -d':' -f1 \\
-  | sort -u`
+POSSIBLE_TEMPLATES=`grep --with-filename --recursive 'Resources' ${INPUT_CFN_DIRECTORY}/* | cut -d':' -f1 | sort -u`
 
 for f in $POSSIBLE_TEMPLATES; do
     # echo "Checking for ruleset matching template file: ${f}"
