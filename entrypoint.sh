@@ -15,8 +15,8 @@ if [ -z ${INPUT_RULESET_FILE} ] ; then
 fi
 
 # find templates with resource
-POSSIBLE_TEMPLATES=`grep --with-filename --recursive 'Resources' ${INPUT_CFN_DIRECTORY}/* | cut -d':' -f1 | sort -u` for f in $POSSIBLE_TEMPLATES; do
-
+POSSIBLE_TEMPLATES=`grep --with-filename --recursive 'Resources' ${INPUT_CFN_DIRECTORY}/* | cut -d':' -f1 | sort -u`
+for f in $POSSIBLE_TEMPLATES; do
     # TODO: check for rules file and either use that for all or look for mathcing tmeplate name
     # echo "Checking for ruleset matching template file: ${f}"
     # rules=${f%.*}.ruleset
