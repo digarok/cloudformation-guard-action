@@ -13,13 +13,11 @@ RUN chmod +x /entrypoint.sh
 
 RUN apt-get update && apt-get install -yy wget
 
-RUN wget https://github.com/aws-cloudformation/cloudformation-guard/releases/download/$CFN_GUARD_VERSION/cfn-guard-v2-ubuntu-latest.tar.gz
-RUN tar -xzf cfn-guard-v2-ubuntu-latest.tar.gz
-RUN mv cfn-guard-v2-ubuntu-latest/cfn-guard /usr/local/bin/
-RUN rm -rf cfn-guard-v2-ubuntu-latest
-RUN rm cfn-guard-v2-ubuntu-latest.tar.gz
+RUN wget https://github.com/aws-cloudformation/cloudformation-guard/releases/download/$CFN_GUARD_VERSION/cfn-guard-v2-ubuntu-latest.tar.gz \
+  && tar -xzf cfn-guard-v2-ubuntu-latest.tar.gz \
+  && mv cfn-guard-v2-ubuntu-latest/cfn-guard /usr/local/bin/ \
+  && rm -rf cfn-guard-v2-ubuntu-latest* \
+  && cfn-guard -h
 
-RUN cfn-guard -h
-#
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]
