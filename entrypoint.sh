@@ -22,6 +22,7 @@ for f in $POSSIBLE_TEMPLATES; do
   # ruleset_file=ruleset_file
 
   echo ">>>>>"
+  echo "evaluating $f"
   if [ -e $INPUT_RULESET_FILE ]; then
     if [ "$f" != "$INPUT_RULESET_FILE" ] # dont scan our own ruleset file
     then
