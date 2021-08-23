@@ -11,6 +11,8 @@ LABEL "maintainer"="Dagen Brock <dagenbrock@gmail.com>" \
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+ADD cfn-guard.ruleset /cfn-guard.ruleset
+
 RUN apt-get update && apt-get install -yy wget
 
 RUN wget https://github.com/aws-cloudformation/cloudformation-guard/releases/download/$CFN_GUARD_VERSION/cfn-guard-v2-ubuntu-latest.tar.gz \
