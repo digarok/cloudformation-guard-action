@@ -23,9 +23,12 @@ for f in $POSSIBLE_TEMPLATES; do
 
   echo ">>>>>"
   echo "evaluating $f"
-  if [ -e $INPUT_RULESET_FILE ]; then
-    if [ "$f" != "$INPUT_RULESET_FILE" ] # dont scan our own ruleset file
-    then
+
+  # if [ -e $INPUT_RULESET_FILE ]; then
+
+  # if [ "$f" != "$INPUT_RULESET_FILE" ] # dont scan our own ruleset file
+  if ! [ echo $f | grep ruleset ] # dont scan ruleset files
+  then
     cg_cmd="cfn-guard validate --rules $INPUT_RULESET_FILE --data ${PWD}/${f} --type CFNTemplate"
     $cg_cmd
 
@@ -35,9 +38,10 @@ for f in $POSSIBLE_TEMPLATES; do
       exit 1 # fail on first error
     fi
   fi
-  else
-    echo "No matching: $rules"
-  fi
+
+  # else
+  #   echo "No matching: $rules"
+  # fi
 
   echo "<<<<<"
   echo ""
