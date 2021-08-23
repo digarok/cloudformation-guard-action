@@ -28,7 +28,7 @@ for F in $POSSIBLE_TEMPLATES; do
   # if ! [ echo $f | grep ruleset ] # dont scan ruleset files
   # if [[ "$F" == *"ruleset"* ]]
   # if grep -q "ruleset" <<< "$F"
-  if [ "$F" =~ "$INPUT_RULESET_FILE" ] # dont scan our own ruleset file
+  if [ "$F" =~ ".+ruleset.+" ] # dont scan our own ruleset file
   then
     echo "Skipping ruleset file"
   else
