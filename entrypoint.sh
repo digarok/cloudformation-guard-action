@@ -9,12 +9,12 @@ if [ -z ${INPUT_CFN_DIRECTORY} ] ; then
 fi
 
 if [ -z ${INPUT_RULESET_FILE} ] ; then
-  echo "Missing 'ruleset_file' parameter."
+  echo "No 'ruleset_file' parameter passed. Using default."
   echo "Set this to the path where your cfn-guard rules are located."
   # exit 1
 fi
 
-INPUT_RULESET_FILE="${INPUT_RULESET_FILE:-'/cfn-guard.ruleset'}"  # If variable not set or null, use default.
+# INPUT_RULESET_FILE="${INPUT_RULESET_FILE:-'/cfn-guard.ruleset'}"  # If variable not set or null, use default.
 
 echo "INPUT_RULESET_FILE set to $INPUT_RULESET_FILE"
 
