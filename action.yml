@@ -13,8 +13,8 @@ inputs:
     ruleset_file:
         description: 'path/to/file of ruleset file'
         required: true
-        # default: '/cfn-guard.ruleset'
-        default: 'infrastructure/templates/cfn-guard.ruleset'
+        default: '/cfn-guard.ruleset'
+        # default: 'infrastructure/templates/cfn-guard.ruleset'
 
 runs:
     using: 'docker'
