@@ -21,8 +21,7 @@ for F in $POSSIBLE_TEMPLATES; do
   # rules=${f%.*}.ruleset
   # ruleset_file=ruleset_file
 
-  echo ">>>>>"
-  echo "evaluating $F"
+  echo "START evaluating $F"
 
   # if [ "$f" != "$INPUT_RULESET_FILE" ] # dont scan our own ruleset file
   # if [[ "$F" == *"ruleset"* ]]
@@ -42,7 +41,7 @@ for F in $POSSIBLE_TEMPLATES; do
     fi
   fi
 
-  echo "<<<<<"
+  echo "END"
   echo ""
 done
 
