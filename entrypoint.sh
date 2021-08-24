@@ -25,10 +25,10 @@ for F in $POSSIBLE_TEMPLATES; do
   echo "evaluating $F"
 
   # if [ "$f" != "$INPUT_RULESET_FILE" ] # dont scan our own ruleset file
-  # if ! [ echo $f | grep ruleset ] # dont scan ruleset files
   # if [[ "$F" == *"ruleset"* ]]
   # if grep -q "ruleset" <<< "$F"
-  if [ "$F" =~ ".+ruleset.+" ] # dont scan our own ruleset file
+  # if [ "$F" =~ ".+ruleset.+" ] # dont scan our own ruleset file
+  if echo "$F" | grep ruleset
   then
     echo "Skipping ruleset file"
   else
