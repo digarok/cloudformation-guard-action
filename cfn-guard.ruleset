@@ -1,0 +1,93 @@
+# all buckets must be encrypted
+let s3_buckets = Resources.*[ Type == 'AWS::S3::Bucket' ]
+rule all_s3_buckets_encrypted when %s3_buckets !empty {
+    let encryption = %s3_buckets.Properties.BucketEncryption
+    %encryption exists
+}
+
+# enforce TLS on RDS
+# let rds_param_groups = Resources.*[ Type == 'AWS::RDS::DBParameterGroup' ]
+# rule enforce_ssl when %rds_param_groups !empty {
+#     %rds_param_groups.Properties.Parameters.force_ssl exists
+#     %rds_param_groups.Properties.Parameters.force_ssl == '1'
+# }
+
+# These our our most offensive tagless items according to AWS Config
+# AWS::RDS::DBSnapshot	      867 # these are probably automated so need to see where they are being created and tag accordingly
+# AWS::EC2::NetworkInterface	309
+# AWS::CloudFormation::Stack	178
+# AWS::EC2::Volume	          122
+# AWS::EC2::SecurityGroup	    98
+# AWS::Logs::LogGroup	        70
+# AWS::EC2::Instance	        62
+# AWS::DynamoDB::Table	      40
+# AWS::S3::Bucket	            38
+# AWS::EC2::Subnet	          37
+
+# ensure our required tags are present
+# let skip_tags_resources = [
+#   /AWS::AmazonBroker/,
+#   /AWS::App*/
+# ]
+# let required_tag_resources = Resources.*[
+#   Type not in %skip_tags_resources
+# ]
+let required_tag_types = [
+  'AWS::EC2::SecurityGroup',
+  /AWS::DynamoDB::Table/,
+  /AWS::EC2::Instance/,
+  /AWS::EC2::NetworkInterface/,
+  'AWS::EC2::Subnet',
+  /AWS::EC2::Volume/,
+  # /AWS::Logs::LogGroup/, # does not accept tags
+  /AWS::RDS::DBSnapshot/,
+  'AWS::S3::Bucket'
+]
+let required_tag_resources = Resources.*[
+  Type in %required_tag_types
+]
+
+let mandatory_keys = ["Name", "component", "creator", "env", "lifecycle", "owner_team", "project"]
+rule required_tags when %required_tag_resources !empty {
+  %required_tag_resources { # for each resource
+    let all_tag_keys_for_resource = Properties.Tags[*].Key
+
+    # ensure that all mandated keys are indeed present for the resource
+    # all_tag_keys_for_resource !empty << Does not have any tags >>
+
+    # when all_tag_keys_for_resource !empty {
+      %mandatory_keys IN %all_tag_keys_for_resource << Required tags missing. Must have "Name", "component", "creator", "env", "lifecycle", "owner_team", "project" >>
+    # }
+  }
+}
+
+# TODO
+# S3 lifecycles
+
+
+
+# Property [/Resources/KopsToolkit] in data [template.yaml]
+# is not compliant with [cfn-guard.ruleset/required_tags]
+# because needed value at
+# [
+#   {
+#     "Type":"AWS::EC2::Instance",
+#     "Condition":"IsGovLifecycle",
+#     "Properties":{
+#       "ImageId":"{{resolve:ssm:/ami/sdp-toolkit-amazonlinux-2:${ToolkitAMIVersion}}}",
+#       "InstanceType":"t3.micro",
+#       "IamInstanceProfile":"KopsToolkitInstanceProfile",
+#       "NetworkInterfaces":[
+#         {
+#           "AssociatePublicIpAddress":false,"DeleteOnTermination":true,
+#           "Description":"ENI for ResourceToolkit","DeviceIndex":"0",
+#           "SubnetId":"PrivateSubnet1",
+#           "GroupSet":["KopsToolkitSG"]
+#         }
+#       ],
+#       "Tags":[
+#         {"Key":"Name","Value":"${AWS::StackName}-Toolkit"}
+#       ]
+#     }
+#   }
+# ] was empty. Error Message []
